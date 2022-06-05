@@ -6,6 +6,8 @@ import com.mojang.brigadier.context.CommandContext;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.SectionPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.network.chat.Component;
@@ -14,10 +16,13 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.ChunkPos;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
+import java.util.List;
+import java.util.stream.Stream;
 
 import static net.minecraft.commands.Commands.literal;
 
@@ -40,6 +45,8 @@ public class Commands {
 		ServerLevel level = source.getLevel();
 		CompoundTag allData = new CompoundTag();
 		int i = 0;
+		List<ChunkPos> chunks = ChunkPos.rangeClosed(SectionPos.of(new BlockPos(source.getPosition())).chunk(), 100).toList();
+		chunks.forEach(pos -> level.setChunkForced(pos.x, pos.z, true));
 		for (Entity entity : level.getAllEntities()) {
 			if (entity.isRemoved())
 				continue;
@@ -50,6 +57,7 @@ public class Commands {
 			allData.put("entity" + i, nbt);
 			i++;
 		}
+		chunks.forEach(pos -> level.setChunkForced(pos.x, pos.z, false));
 		allData.putInt("entities", i);
 		File out = FabricLoader.getInstance().getGameDir().resolve("entity_restoration.nbt").toFile();
 		try {
@@ -58,7 +66,7 @@ public class Commands {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		source.sendSuccess(new TextComponent("Successfully saved " + i + " entities."), true);
+		source.sendSuccess(new TextComponent("Successfully saved " + i + " entities across " + chunks.size() + " chunks."), true);
 		return 0;
 	}
 
