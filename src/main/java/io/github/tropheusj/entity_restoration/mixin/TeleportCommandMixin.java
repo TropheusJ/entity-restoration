@@ -34,11 +34,8 @@ public class TeleportCommandMixin {
 		entity_restoration$checkTp(source, targets, cir);
 	}
 
-	/**
-	 * @return true if tp should succeed
-	 */
 	@Unique
-	private static boolean entity_restoration$checkTp(CommandSourceStack source, Collection<? extends Entity> targets, CallbackInfoReturnable<Integer> cir) {
+	private static void entity_restoration$checkTp(CommandSourceStack source, Collection<? extends Entity> targets, CallbackInfoReturnable<Integer> cir) {
 		Entity sender = source.getEntity();
 		int targetCount = targets.size();
 		if (sender instanceof ServerPlayer player && targetCount != 1) {
@@ -56,10 +53,7 @@ public class TeleportCommandMixin {
 				cir.setReturnValue(0);
 			} else {
 				EntityRestoration.PLAYERS_TELEPORTING.remove(uuid);
-				return true;
 			}
-			return false;
 		}
-		return true;
 	}
 }
