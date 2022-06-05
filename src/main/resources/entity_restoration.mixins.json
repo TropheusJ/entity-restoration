@@ -4,6 +4,8 @@
   "package": "io.github.tropheusj.entity_restoration.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "KillCommandMixin",
+    "TeleportCommandMixin"
   ],
   "client": [
   ],
