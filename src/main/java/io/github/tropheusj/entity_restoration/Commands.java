@@ -13,6 +13,7 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,6 +42,8 @@ public class Commands {
 		int i = 0;
 		for (Entity entity : level.getAllEntities()) {
 			if (entity.isRemoved())
+				continue;
+			if (entity instanceof Player)
 				continue;
 			CompoundTag nbt = new CompoundTag();
 			entity.save(nbt);
