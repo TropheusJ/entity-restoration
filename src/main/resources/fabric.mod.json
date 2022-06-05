@@ -1,25 +1,25 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "entity_restoration",
   "version": "${version}",
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Entity Restoration",
+  "description": "Lets you copy all entities from one world to another, intended for when you accidentally kill @e.",
   "authors": [
     "Tropheus Jay"
   ],
   "contact": {
-    "sources": "https://github.com/TropheusJ/fabric-example-mod"
+    "sources": "https://github.com/TropheusJ/entity-restoration"
   },
   "license": "MIT",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/entity_restoration/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "io.github.tropheusj.modid.ExampleMod"
+      "io.github.tropheusj.entity_restoration.EntityRestoration"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "entity_restoration.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",

@@ -1,10 +1,4 @@
-# Fabric Example Mod
+# Entity Restoration
+Lets you copy all entities from one world to another, intended for when you accidentally kill @e.
 
-## Setup
-
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the
-IDE that you are using.
-
-## License
-
-This template is available under the MIT license. Feel free to learn from it and incorporate it in your own projects.
+To use, use `/entityRestoration save` to save entities in one world, and `/entityRestoration load` to load them into another.
